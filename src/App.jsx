@@ -1,5 +1,6 @@
 import './App.css'
 import ItemListContainer from './components/ItemListContainer'
+import NavBarBootstrap from './components/NavBarBootstrap'
 import NavbarComponent from './components/NavbarComponent'
 // import Contador from './ejemplos/Contador'
 function App() {
@@ -9,7 +10,7 @@ function App() {
 console.log('Soy App')
   return (
     <>
-      <NavbarComponent/>
+      <NavBarBootstrap/>
       <ItemListContainer greeting='Bienvenidos' pepe={user}/>
       {/* <Contador/> */}
     </>
