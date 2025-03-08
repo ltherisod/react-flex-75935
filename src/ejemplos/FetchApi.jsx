@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import ListApi from './ListApi'
+import MouseTracker from './MouseTracker'
 
 const FetchApi = () => {
     const [characters, setCharacters] = useState([])
@@ -24,6 +25,9 @@ if(error){
 
   return (
     <div>
+          <MouseTracker render={(mouse)=>(
+        <h2>Posicion del mouse: X: {mouse.x}</h2>
+      )}/>
         {loading ? <p>Cargando...</p> : <ListApi characters={characters}/>}
     </div>
   )
