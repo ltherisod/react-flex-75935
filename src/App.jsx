@@ -1,28 +1,26 @@
 import './App.css'
 import ItemListContainer from './components/ItemListContainer'
 import NavBarBootstrap from './components/NavBarBootstrap'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import NavbarComponent from './components/NavbarComponent'
-import Contador from './ejemplos/Contador'
-import FetchApi from './ejemplos/FetchApi'
-//hoc
-import WithDataFetch from './hoc/WithDataFetch'
-import FetchHoc from './ejemplos/FetchHoc'
-import MouseTracker from './ejemplos/MouseTracker'
+import ItemDetailContainer from './components/ItemDetailContainer'
+import ErrorPage from './components/ErrorPage'
+
 function App() {
-  //envolver el componente para el HOC
-  const FetchWrapped = WithDataFetch(FetchHoc, 'https://pokeapi.co/api/v2/pokemon?limit=10&offset=0')
+
 console.log('Soy App')
   return (
-    <>
+    <BrowserRouter>
       <NavBarBootstrap/>
-      <MouseTracker render={(mouse)=>(
-        <h2>Posicion del mouse: X: {mouse.x}, Y: {mouse.y}</h2>
-      )}/>
-      <FetchApi/>
-      <FetchWrapped/>
-      <ItemListContainer greeting='Bienvenidos' />
-      {/* <Contador/> */}
-    </>
+      {/* <NavbarComponent/> */}
+      <Routes>
+        <Route path='/' element={ <ItemListContainer greeting='Bienvenidos' />} />
+        <Route path='/category/:categoryId' element={<ItemListContainer greeting='Seleccionaste la categoria:' />}/>
+        <Route path='/item/:id' element={<ItemDetailContainer/>}/>
+        <Route path='*' element={<ErrorPage/>}/>
+      </Routes>
+     
+      </BrowserRouter>
   )
 }
 
