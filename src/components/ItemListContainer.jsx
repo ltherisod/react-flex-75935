@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { getProducts } from '../mock/asyncData'
 import ItemList from './ItemList'
 import { useParams } from 'react-router-dom'
+import LoaderComponent from './LoaderComponent'
 const ItemListContainer = ({greeting}) => {
     const [data, setData]= useState([])
     const [loading, setLoading] = useState(false)
@@ -27,7 +28,7 @@ useEffect(()=>{
         <main>
             <h1 className='text-success'>{greeting}{categoryId && <span style={{textTransform:'capitalize'}}>{categoryId}</span>}</h1>
            {/* {data.map((item)=> <p key={item.id}>{item.name}</p>)} */}
-           {loading ? <p>Cargando...</p> : <ItemList data={data}/>}
+           {loading ? <LoaderComponent/> : <ItemList data={data}/>}
         </main>
     )
 }

@@ -5,21 +5,24 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import NavbarComponent from './components/NavbarComponent'
 import ItemDetailContainer from './components/ItemDetailContainer'
 import ErrorPage from './components/ErrorPage'
-
+import { CartProvider } from './context/CartContext'
+import CartContainer from './components/CartContainer'
 function App() {
 
 console.log('Soy App')
   return (
     <BrowserRouter>
+    <CartProvider>
       <NavBarBootstrap/>
       {/* <NavbarComponent/> */}
       <Routes>
         <Route path='/' element={ <ItemListContainer greeting='Bienvenidos' />} />
         <Route path='/category/:categoryId' element={<ItemListContainer greeting='Seleccionaste la categoria:' />}/>
         <Route path='/item/:id' element={<ItemDetailContainer/>}/>
+        <Route path='/cart' element={<CartContainer/>}/>
         <Route path='*' element={<ErrorPage/>}/>
       </Routes>
-     
+    </CartProvider>
       </BrowserRouter>
   )
 }
