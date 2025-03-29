@@ -4,8 +4,10 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import CartWidgetIcons from './CartWidgetIcons';
 import { NavLink } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 
 function NavBarBootstrap() {
+  const {cart}=useCart()
   return (
     <Navbar expand="lg" className="bg-body-tertiary" bg="dark" data-bs-theme="dark">
       <Container>
@@ -24,7 +26,9 @@ function NavBarBootstrap() {
               <NavDropdown.Item as={NavLink} to='/category/ofertas'>Ofertas</NavDropdown.Item>
             </NavDropdown>
           </Nav>
-            <CartWidgetIcons/>
+          {/* Una forma de hacerlo */}
+           {/* { cart.length && <NavLink to='/cart' style={{textDecoration:'none'}}><CartWidgetIcons/></NavLink>} */}
+          <NavLink to='/cart' style={{textDecoration:'none'}}><CartWidgetIcons/></NavLink> 
         </Navbar.Collapse>
       </Container>
     </Navbar>

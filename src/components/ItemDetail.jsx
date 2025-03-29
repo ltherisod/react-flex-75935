@@ -19,7 +19,18 @@ const ItemDetail = ({product}) => {
         <p>{product.description}</p>
         <p>Stock: {product.stock} unidades</p>
         <p>Precio: ${product.price},00</p>
-        {purchase ? <Link className='btn btn-dark' to='/cart'>Ir al carrito</Link> : <ItemCounter stock={product.stock} onAdd={onAdd}/>}
+        {purchase 
+        ? <div 
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: '2rem',
+        }}>
+          <Link className='btn btn-dark' to='/'>Seguir comprando</Link>
+          <Link className='btn btn-dark' to='/cart'>Ir al carrito</Link>
+          </div> 
+        : <ItemCounter stock={product.stock} onAdd={onAdd}/>}
     </div>
   )
 }

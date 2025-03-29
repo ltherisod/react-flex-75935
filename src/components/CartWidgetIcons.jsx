@@ -5,11 +5,11 @@ import { CartContext, useCart } from "../context/CartContext";
 
 const CartWidgetIcons = () => {
     // const {cart}= useContext(CartContext)
-    const {cart} = useCart()
-    console.log(cart, 'carrito')
+    const {cartQuantity} = useCart()
+   
     return <div>
         <TiShoppingCart color='white' fontSize={'1.5rem'}/>
-        <Badge bg="danger">{cart.length}</Badge>
+       { cartQuantity() > 0 && <Badge bg="danger">{cartQuantity()}</Badge>}
     </div>
 }
 export default CartWidgetIcons

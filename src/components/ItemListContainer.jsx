@@ -3,26 +3,59 @@ import { getProducts } from '../mock/asyncData'
 import ItemList from './ItemList'
 import { useParams } from 'react-router-dom'
 import LoaderComponent from './LoaderComponent'
+import { collection, getDocs, where, query } from 'firebase/firestore'
+import { db } from '../service/firebase'
 const ItemListContainer = ({greeting}) => {
     const [data, setData]= useState([])
     const [loading, setLoading] = useState(false)
     const {categoryId} = useParams()
-//Promesa de productos
-console.log(categoryId)
-useEffect(()=>{
+
+
+//Firebase
+
+useEffect(()=> {
     setLoading(true)
-    getProducts()
+    //conectamos con nuestra collection
+    const productCollection = categoryId 
+    ? query(collection(db, "productos"), where("category","==", categoryId))
+    : collection(db, "productos")
+    //pedir los documentos
+    getDocs(productCollection)
     .then((res)=>{
-        if(categoryId){
-            //filtrar
-            setData(res.filter((item)=> item.category === categoryId))
-        }else{
-            setData(res)
-        }
+        //limppiar datos para uso
+        // console.log(res.docs)
+        const list = res.docs.map((doc)=>{
+            return {
+                id:doc.id,
+                ...doc.data()
+            }
+        })
+        // console.log(list)
+        setData(list)
     })
     .catch((error)=> console.log(error))
     .finally(()=> setLoading(false))
 },[categoryId])
+
+
+
+
+
+    //Promesa de productos
+// useEffect(()=>{
+//     setLoading(true)
+//     getProducts()
+//     .then((res)=>{
+//         if(categoryId){
+//             //filtrar
+//             setData(res.filter((item)=> item.category === categoryId))
+//         }else{
+//             setData(res)
+//         }
+//     })
+//     .catch((error)=> console.log(error))
+//     .finally(()=> setLoading(false))
+// },[categoryId])
 
     return(
         <main>

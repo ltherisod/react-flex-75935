@@ -56,8 +56,23 @@ export const CartProvider = ({children})=>{
         return cart.some((prod)=> prod.id === id)
     }
 
+    //total a pagar la llamamos en Cart
+
+    const cartTotal = () => {
+        return cart.reduce((acc, prod) => (acc += prod.price * prod.quantity),0)
+    }
+
+    //total de items la llamaos en cartWidget
+
+    const cartQuantity = () => {
+        return cart.reduce((acc, prod)=> acc += prod.quantity, 0)
+    }
+
+    // const cartTotalImpuestos = () => {
+    //     return cart.reduce((acc, prod) => (acc += prod.price * prod.quantity),3)
+    // }
     return(
-        <CartContext.Provider value={{cart, addToCart, clear, removeItem}}>
+        <CartContext.Provider value={{cart, addToCart, clear, removeItem, cartTotal, cartQuantity}}>
             {children}
         </CartContext.Provider>
     )
